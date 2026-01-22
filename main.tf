@@ -5,7 +5,7 @@ resource "aws_instance" "myinstance" {
   tags = {
     name = "mydemo"
   }
-metadata_options {
+  metadata_options {
     http_tokens = "required"
   }
 }
