@@ -9,3 +9,4 @@ resource "aws_instance" "myinstance" {
     http_tokens = "required"
   }
 }
+
