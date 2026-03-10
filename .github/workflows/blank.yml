@@ -32,24 +32,27 @@ jobs:
 
     - name: Download cortexcli
       run: |
-        sudo apt-get update
-        sudo apt-get install -y jq 
-        set -e
-        crtx_resp=$(curl -s "${CORTEX_API_URL}/public_api/v1/unified-cli/releases/download-link?os=linux&architecture=amd64" \
-          -H "x-xdr-auth-id: ${CORTEX_API_KEY_ID}" \
-          -H "Authorization: Bearer ${CORTEX_API_KEY}")
+        # sudo apt-get update
+        # sudo apt-get install -y jq 
+        # set -e
+        # crtx_resp=$(curl -s "${CORTEX_API_URL}/public_api/v1/unified-cli/releases/download-link?os=linux&architecture=amd64" \
+        #   -H "x-xdr-auth-id: ${CORTEX_API_KEY_ID}" \
+        #   -H "Authorization: Bearer ${CORTEX_API_KEY}")
           
-        echo "Response from API:"
-        echo "$crtx_resp"
+        # echo "Response from API:"
+        # echo "$crtx_resp"
         
-        crtx_url=$(echo $crtx_resp | jq -r ".signed_url")
+        # crtx_url=$(echo $crtx_resp | jq -r ".signed_url")
 
-        if [ "$crtx_url" = "null" ] || [ -z "$crtx_url" ]; then
-          echo "Failed to get download URL from Cortex API"
-          exit 1
-        fi
+        # if [ "$crtx_url" = "null" ] || [ -z "$crtx_url" ]; then
+        #   echo "Failed to get download URL from Cortex API"
+        #   exit 1
+        # fi
         
-        curl -L -o cortexcli "$crtx_url"
+        # curl -L -o cortexcli "$crtx_url"
+        # chmod +x cortexcli
+        # ./cortexcli --version
+        curl -L -o cortexcli https://downloads.cortexcloud.io/unified-cli/latest/linux/amd64/cortexcli
         chmod +x cortexcli
         ./cortexcli --version
 
