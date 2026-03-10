@@ -22,6 +22,11 @@ jobs:
           uses: hashicorp/setup-terraform@v3
           with:
             terraform_version: 1.8.5
+        - name: Terraform Login
+          run: |
+           mkdir -p ~/.terraform.d 
+           echo '{"credentials":{"app.terraform.io":{"token":"${{ secrets.TF_API_TOKEN }}"}}}' > ~/.terraform.d/credentials.tfrc.json       
+  
 
         - name: Terraform Init
           run: terraform init
