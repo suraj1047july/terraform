@@ -17,6 +17,7 @@ jobs:
   terraform-plan-and-scan:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -55,15 +56,15 @@ jobs:
         - name: Checkout Code
           uses: actions/checkout@v4
 
-        - name: Setup Terraform
-          uses: hashicorp/setup-terraform@v3
-          with:
-             terraform_version: 1.8.5
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+         terraform_version: 1.8.5
           
-        - name: Terraform Login
-          run: |
-           mkdir -p ~/.terraform.d 
-           echo '{"credentials":{"app.terraform.io":{"token":"${{ secrets.TF_API_TOKEN }}"}}}' > ~/.terraform.d/credentials.tfrc.json       
+    - name: Terraform Login
+      run: |
+       mkdir -p ~/.terraform.d 
+       echo '{"credentials":{"app.terraform.io":{"token":"${{ secrets.TF_API_TOKEN }}"}}}' > ~/.terraform.d/credentials.tfrc.json       
   
         - name: Terraform Init
           run: terraform init
