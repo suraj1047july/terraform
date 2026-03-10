@@ -4,7 +4,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"
+      version = "~> 6.0"
     }
   }
 
@@ -12,7 +12,7 @@ terraform {
     organization = "terraform_learn_all_cloud"
 
     workspaces {
-      name = "terraform_aws"
+      name = "Disconnected-Env"
     }
   }
 }
