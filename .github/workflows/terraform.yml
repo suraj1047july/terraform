@@ -1,0 +1,58 @@
+name: Terraform CI/CD
+
+on:
+ pull_request:
+  branches:
+   - aws_feature
+ push:
+  branches:
+   - aws
+
+jobs:
+  terraform-plan:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+
+    steps:
+        - name: Checkout Code
+          uses: actions/checkout@v4
+
+        - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v3
+          with:
+             terraform_version: 1.8.5
+
+        - name: Terraform Init
+          run: terraform init
+
+        - name: Terraform Format Check
+          run: terraform fmt -check -recursive
+
+        - name: Terraform Validate
+          run: terraform validate
+
+        - name: Terraform Plan
+          run: terraform plan
+
+
+  terraform-apply:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+
+    steps:
+       - name: Checkout Code
+         uses: actions/checkout@v4
+
+       - name: Setup Terraform
+         uses: hashicorp/setup-terraform@v3
+         with:
+          terraform_version: 1.8.5
+
+       - name: Terraform Init
+         run: terraform init
+
+       - name: Terraform Apply
+         run: terraform apply -auto-approve
+
