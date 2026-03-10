@@ -6,7 +6,7 @@ on:
    - aws_feature
  push:
   branches:
-   - aws
+   - aws_feature
 
 jobs:
   terraform-plan:
