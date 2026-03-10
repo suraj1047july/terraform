@@ -1,23 +1,145 @@
-# name: Terraform CI/CD
+name: Terraform CI/CD
+
+on:
+ pull_request:
+  branches:
+   - aws
+ push:
+  branches:
+   - aws
+ workflow_dispatch:
+# env:
+#   CORTEX_API_KEY: ${{secrets.CORTEX_API_KEY}}
+#   CORTEX_API_KEY_ID: ${{secrets.CORTEX_API_KEY_ID}}
+#   CORTEX_API_URL: https://api-cortexcloudacpllab.xdr.in.paloaltonetworks.com
+  
+jobs:
+  terraform-plan-and-scan:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    
+    steps:
+    # - name: Checkout Repository
+    #   uses: actions/checkout@v2
+    
+    # - name: Set up Node.js
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: 22
+
+    # - name: Verify Node.js Version
+    #   run: node -v
+
+    # - name: Download cortexcli
+    #   run: |
+    #     # sudo apt-get update
+    #     # sudo apt-get install -y jq 
+    #     # set -e
+    #     # crtx_resp=$(curl -s "${CORTEX_API_URL}/public_api/v1/unified-cli/releases/download-link?os=linux&architecture=amd64" \
+    #     #   -H "x-xdr-auth-id: ${CORTEX_API_KEY_ID}" \
+    #     #   -H "Authorization: Bearer ${CORTEX_API_KEY}")
+          
+    #     # echo "Response from API:"
+    #     # echo "$crtx_resp"
+        
+    #     # crtx_url=$(echo $crtx_resp | jq -r ".signed_url")
+
+    #     # if [ "$crtx_url" = "null" ] || [ -z "$crtx_url" ]; then
+    #     #   echo "Failed to get download URL from Cortex API"
+    #     #   exit 1
+    #     # fi
+        
+    #     # curl -L -o cortexcli "$crtx_url"
+    #     # chmod +x cortexcli
+    #     # ./cortexcli --version
+    #     curl -L -o cortexcli https://downloads.cortexcloud.io/unified-cli/latest/linux/amd64/cortexcli
+    #     chmod +x cortexcli
+    #     ./cortexcli --version
+
+    # - name: Run Cortex CLI Code Scan
+    #   run: |
+    #     ./cortexcli \
+    #       --api-base-url "${CORTEX_API_URL}" \
+    #       --api-key "${CORTEX_API_KEY}" \
+    #       --api-key-id "${CORTEX_API_KEY_ID}" \
+    #       code scan \
+    #       --directory "${{github.workspace}}" \
+    #       --repo-id "${{github.repository}}" \
+    #       --branch "${{github.ref_name}}" \
+    #       --source "GITHUB_ACTIONS" \
+    #       --create-repo-if-missing
+    #     - name: Checkout Code
+    #       uses: actions/checkout@v4
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+         terraform_version: 1.8.5
+          
+    - name: Terraform Login
+      run: |
+       mkdir -p ~/.terraform.d 
+       echo '{"credentials":{"app.terraform.io":{"token":"${{ secrets.TF_API_TOKEN }}"}}}' > ~/.terraform.d/credentials.tfrc.json       
+  
+        - name: Terraform Init
+          run: terraform init
+          
+        - name: Terraform Format Fix
+          run: terraform fmt -recursive
+
+        - name: Terraform Format Check
+          run: terraform fmt -check -recursive
+
+        - name: Terraform Validate
+          run: terraform validate
+
+        - name: Terraform Plan
+          run: terraform plan
+
+
+  terraform-apply:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+
+    steps:
+       - name: Checkout Code
+         uses: actions/checkout@v4
+
+       - name: Setup Terraform
+         uses: hashicorp/setup-terraform@v3
+         with:
+          terraform_version: 1.8.5
+
+       - name: Terraform Login
+         run: |
+           mkdir -p ~/.terraform.d 
+           echo '{"credentials":{"app.terraform.io":{"token":"${{ secrets.TF_API_TOKEN }}"}}}' > ~/.terraform.d/credentials.tfrc.json       
+
+       - name: Terraform Init
+         run: terraform init
+
+       - name: Terraform Apply
+         run: terraform apply -auto-approve
+
+
+# name: Cortex CLI Code Scan
 
 # on:
-#  pull_request:
-#   branches:
-#    - aws
-#  push:
-#   branches:
-#    - aws
-#  workflow_dispatch:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:
+
 # env:
 #   CORTEX_API_KEY: ${{secrets.CORTEX_API_KEY}}
 #   CORTEX_API_KEY_ID: ${{secrets.CORTEX_API_KEY_ID}}
 #   CORTEX_API_URL: https://api-cortexcloudacpllab.xdr.in.paloaltonetworks.com
   
 # jobs:
-#   terraform-plan-and-scan:
-#     if: github.event_name == 'pull_request'
+#   cortex-code-scan:
 #     runs-on: ubuntu-latest
-    
+
 #     steps:
 #     - name: Checkout Repository
 #       uses: actions/checkout@v2
@@ -32,27 +154,12 @@
 
 #     - name: Download cortexcli
 #       run: |
-#         # sudo apt-get update
-#         # sudo apt-get install -y jq 
-#         # set -e
-#         # crtx_resp=$(curl -s "${CORTEX_API_URL}/public_api/v1/unified-cli/releases/download-link?os=linux&architecture=amd64" \
-#         #   -H "x-xdr-auth-id: ${CORTEX_API_KEY_ID}" \
-#         #   -H "Authorization: Bearer ${CORTEX_API_KEY}")
-          
-#         # echo "Response from API:"
-#         # echo "$crtx_resp"
-        
-#         # crtx_url=$(echo $crtx_resp | jq -r ".signed_url")
-
-#         # if [ "$crtx_url" = "null" ] || [ -z "$crtx_url" ]; then
-#         #   echo "Failed to get download URL from Cortex API"
-#         #   exit 1
-#         # fi
-        
-#         # curl -L -o cortexcli "$crtx_url"
-#         # chmod +x cortexcli
-#         # ./cortexcli --version
-#         curl -L -o cortexcli https://downloads.cortexcloud.io/unified-cli/latest/linux/amd64/cortexcli
+#         set -x
+#         crtx_resp=$(curl "${CORTEX_API_URL}/public_api/v1/unified-cli/releases/download-link?os=linux&architecture=amd64" \
+#           -H "x-xdr-auth-id: ${CORTEX_API_KEY_ID}" \
+#           -H "Authorization: ${CORTEX_API_KEY}")
+#         crtx_url=$(echo $crtx_resp | jq -r ".signed_url")
+#         curl -o cortexcli $crtx_url
 #         chmod +x cortexcli
 #         ./cortexcli --version
 
@@ -68,111 +175,4 @@
 #           --branch "${{github.ref_name}}" \
 #           --source "GITHUB_ACTIONS" \
 #           --create-repo-if-missing
-#         - name: Checkout Code
-#           uses: actions/checkout@v4
-
-#     - name: Setup Terraform
-#       uses: hashicorp/setup-terraform@v3
-#       with:
-#          terraform_version: 1.8.5
-          
-#     - name: Terraform Login
-#       run: |
-#        mkdir -p ~/.terraform.d 
-#        echo '{"credentials":{"app.terraform.io":{"token":"${{ secrets.TF_API_TOKEN }}"}}}' > ~/.terraform.d/credentials.tfrc.json       
-  
-#         - name: Terraform Init
-#           run: terraform init
-          
-#         - name: Terraform Format Fix
-#           run: terraform fmt -recursive
-
-#         - name: Terraform Format Check
-#           run: terraform fmt -check -recursive
-
-#         - name: Terraform Validate
-#           run: terraform validate
-
-#         - name: Terraform Plan
-#           run: terraform plan
-
-
-#   terraform-apply:
-#     if: github.event_name == 'push'
-#     runs-on: ubuntu-latest
-
-
-#     steps:
-#        - name: Checkout Code
-#          uses: actions/checkout@v4
-
-#        - name: Setup Terraform
-#          uses: hashicorp/setup-terraform@v3
-#          with:
-#           terraform_version: 1.8.5
-
-#        - name: Terraform Login
-#          run: |
-#            mkdir -p ~/.terraform.d 
-#            echo '{"credentials":{"app.terraform.io":{"token":"${{ secrets.TF_API_TOKEN }}"}}}' > ~/.terraform.d/credentials.tfrc.json       
-
-#        - name: Terraform Init
-#          run: terraform init
-
-#        - name: Terraform Apply
-#          run: terraform apply -auto-approve
-
-
-name: Cortex CLI Code Scan
-
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-
-env:
-  CORTEX_API_KEY: ${{secrets.CORTEX_API_KEY}}
-  CORTEX_API_KEY_ID: ${{secrets.CORTEX_API_KEY_ID}}
-  CORTEX_API_URL: https://api-cortexcloudacpllab.xdr.in.paloaltonetworks.com
-  
-jobs:
-  cortex-code-scan:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-    
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 22
-
-    - name: Verify Node.js Version
-      run: node -v
-
-    - name: Download cortexcli
-      run: |
-        set -x
-        crtx_resp=$(curl "${CORTEX_API_URL}/public_api/v1/unified-cli/releases/download-link?os=linux&architecture=amd64" \
-          -H "x-xdr-auth-id: ${CORTEX_API_KEY_ID}" \
-          -H "Authorization: ${CORTEX_API_KEY}")
-        crtx_url=$(echo $crtx_resp | jq -r ".signed_url")
-        curl -o cortexcli $crtx_url
-        chmod +x cortexcli
-        ./cortexcli --version
-
-    - name: Run Cortex CLI Code Scan
-      run: |
-        ./cortexcli \
-          --api-base-url "${CORTEX_API_URL}" \
-          --api-key "${CORTEX_API_KEY}" \
-          --api-key-id "${CORTEX_API_KEY_ID}" \
-          code scan \
-          --directory "${{github.workspace}}" \
-          --repo-id "${{github.repository}}" \
-          --branch "${{github.ref_name}}" \
-          --source "GITHUB_ACTIONS" \
-          --create-repo-if-missing
 
