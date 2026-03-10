@@ -12,7 +12,7 @@ terraform {
     organization = "terraform_learn_all_cloud"
 
     workspaces {
-      name = "Disconnected-Env"
+      name = "terraform_aws"
     }
   }
 }
