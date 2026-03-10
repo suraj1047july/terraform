@@ -16,3 +16,4 @@ module "subnet" {
   azs = ["ap-south-1a", "ap-south-1b"]
   public = "true"
 }
+
