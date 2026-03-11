@@ -4,8 +4,8 @@ on:
  pull_request:
   branches:
    - aws
-push:
- branches:
+ push:
+  branches:
   - aws
 
 env:
