@@ -1,23 +1,23 @@
 name: Terraform CI/CD
 
 on:
-pull_request:
-branches:
-- aws
+ pull_request:
+  branches:
+   - aws
 push:
-branches:
-- aws
+ branches:
+  - aws
 
 env:
-CORTEX_API_KEY: ${{ secrets.CORTEX_API_KEY }}
-CORTEX_API_KEY_ID: ${{ secrets.CORTEX_API_KEY_ID }}
-CORTEX_API_URL: https://api-cortexcloudacpllab.xdr.in.paloaltonetworks.com
+ CORTEX_API_KEY: ${{ secrets.CORTEX_API_KEY }}
+ CORTEX_API_KEY_ID: ${{ secrets.CORTEX_API_KEY_ID }}
+ CORTEX_API_URL: https://api-cortexcloudacpllab.xdr.in.paloaltonetworks.com
 
 jobs:
-terraform-plan:
-if: github.event_name == 'pull_request'
-runs-on: ubuntu-latest
-steps:
+ terraform-plan:
+  if: github.event_name == 'pull_request'
+  runs-on: ubuntu-latest
+  steps:
   - name: Checkout Code
     uses: actions/checkout@v4
 
@@ -83,12 +83,12 @@ steps:
     run: terraform plan
 
 
-terraform-apply:
-if: github.event_name == 'push'
-runs-on: ubuntu-latest
+ terraform-apply:
+  if: github.event_name == 'push'
+  runs-on: ubuntu-latest
 
 
-steps:
+  steps:
   - name: Checkout Code
     uses: actions/checkout@v4
 
@@ -102,4 +102,4 @@ steps:
 
   - name: Terraform Apply
     run: terraform apply -auto-approve
-```
+
