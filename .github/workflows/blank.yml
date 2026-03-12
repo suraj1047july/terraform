@@ -20,7 +20,6 @@ jobs:
   - name: Create Pull Request
     uses: peter-evans/create-pull-request@v6
     with:
-      token: ${{ secrets.GITHUB_TOKEN }}
       base: aws_feature
       branch: aws
       title: "Auto PR: aws → main"
