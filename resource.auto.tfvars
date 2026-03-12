@@ -6,10 +6,7 @@ vpcs = {
     name = "prod-vpc"
   }
 
-  vpc2 = {
-    cidr = "10.1.0.0/16"
-    name = "dev-vpc"
-  }
+
 }   
 
 subnets = {
@@ -18,9 +15,5 @@ subnets = {
     name = "prod-subnet"
     vpc_key = "vpc1"
   }
-    subnet2 = {
-        cidr_blocks = ["10.1.1.0/24","10.1.2.0/24"]
-        name = "dev-subnet"
-        vpc_key = "vpc2"
-    }
+
 }   
