@@ -13,7 +13,7 @@ variable "rg" {
   type        = string
 }
 
-variable "tags" {
-  description = "tagname"
+variable "location" {
+  description = "azure region"
   type        = string
 }
