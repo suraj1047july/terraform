@@ -1,3 +1,3 @@
 provider "azurerm" {
-  region = "eastus"
+  location = "eastus"
 }
