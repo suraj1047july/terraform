@@ -1,3 +1,3 @@
 provider "azurerm" {
-  region = "East US"
+  region = "Central India"
 }
