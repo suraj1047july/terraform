@@ -1,3 +1,3 @@
 output "vnet_id" {
-  value = module.vnet.vnet_id
+  value = azurerm_virtual_network.vnet.id
 }
