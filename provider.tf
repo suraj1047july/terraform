@@ -1,3 +1,3 @@
-provider "azure" {
+provider "azurerm" {
   region = "East US"
 }
