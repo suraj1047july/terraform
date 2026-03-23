@@ -18,7 +18,7 @@ variable "rg" {
   type        = string
 }
 
-variable "tag" {
+variable "tags" {
   description = "tagname"
   type        = string
 }
