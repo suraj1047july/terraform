@@ -17,3 +17,8 @@ variable "rg" {
   description = "Resource Group name"
   type        = string
 }
+
+variable "tag" {
+  description = "tagname"
+  type        = string
+}
