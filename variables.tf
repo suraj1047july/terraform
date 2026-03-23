@@ -3,11 +3,6 @@ variable "address_space" {
   type        = string
 }
 
-variable "location" {
-  description = "Azure region"
-  type        = string
-}
-
 variable "name" {
   description = "VNet name"
   type        = string
