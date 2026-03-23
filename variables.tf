@@ -17,3 +17,7 @@ variable "location" {
   description = "azure region"
   type        = string
 }
+variable "tags" {
+  description = "tags"
+  type        = string
+}
