@@ -1,3 +1,3 @@
-provider "aws" {
-  region = "ap-south-1"
+provider "azure" {
+  region = "East US"
 }
