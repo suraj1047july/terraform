@@ -5,7 +5,5 @@ module "vnet" {
   location = var.location
   name = var.name
   resource_group_name = var.rg
-    tags = {
-    env = "test"
-  }
+  tags = var.tags
 }
