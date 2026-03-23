@@ -1,6 +1,6 @@
 variable "address_space" {
   description = "Address space for VNet"
-  type        = list(string)
+  type        = string
 }
 
 variable "location" {
