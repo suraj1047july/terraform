@@ -5,4 +5,5 @@ module "Vnet" {
   location = var.location
   name = var.name
   resource_group_name = var.rg
+  tags = var.tags
 }
