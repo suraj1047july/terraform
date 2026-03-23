@@ -1,3 +1,1 @@
-provider "azurerm" {
-  location = "eastus"
-}
+provider "azurerm" {}
