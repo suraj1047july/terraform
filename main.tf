@@ -1,21 +1,8 @@
-module "vpc" {
-  source  = "app.terraform.io/terraform_learn_all_cloud/vpc/aws"
-  version = "1.0.0"
-  for_each =var.vpcs
-  cidr = each.value.cidr
-  name = "${each.value.name}"
+module "Vnet" {
+  source  = "app.terraform.io/terraform_learn_all_cloud/Vnet/Azure"
+  version = "1.0.2"
+  address_space = var.address_space
+  location = var.location
+  name = var.name
+  resource_group_name = var.rg
 }
-module "subnet" {
-  source  = "app.terraform.io/terraform_learn_all_cloud/subnet/aws"
-  version = "1.0.0"
-  # insert required variables here
-  for_each =var.subnets
-  cidr_blocks = each.value.cidr_blocks
-  vpc_id = module.vpc[each.value.vpc_key].vpc_id
-  name = each.value.name
-  azs = ["ap-south-1a", "ap-south-1b"]
-  public = "true"
-}
-
-
-
