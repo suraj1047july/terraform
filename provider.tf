@@ -1,3 +1,5 @@
-provider "aws" {
-  region = "ap-south-1"
+provider "azurerm" {
+features {}
+resource_provider_registrations = "none"
 }
+
