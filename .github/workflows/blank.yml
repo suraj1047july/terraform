@@ -8,10 +8,10 @@ on:
   branches:
    - aws
 
-env:
- CORTEX_API_KEY: ${{ secrets.CORTEX_API_KEY }}
- CORTEX_API_KEY_ID: ${{ secrets.CORTEX_API_KEY_ID }}
- CORTEX_API_URL: https://api-cortexcloudacpllab.xdr.in.paloaltonetworks.com
+# env:
+#  CORTEX_API_KEY: ${{ secrets.CORTEX_API_KEY }}
+#  CORTEX_API_KEY_ID: ${{ secrets.CORTEX_API_KEY_ID }}
+#  CORTEX_API_URL: https://api-cortexcloudacpllab.xdr.in.paloaltonetworks.com
 
 jobs:
 
@@ -27,6 +27,14 @@ jobs:
 
   - name: Checkout Code
     uses: actions/checkout@v4
+# -------- Prisma Cloud Scan --------
+  - name: Run Prisma Cloud Scan
+    id: prisma-cloud
+    uses: bridgecrewio/checkov-action@master
+    env:
+      PRISMA_API_URL: https://api.ind.prismacloud.io
+    with:
+      api-key: ${{ secrets.BC_API_KEY }}
 
   # -------- Node Setup for Cortex --------
   - name: Set up Node.js
@@ -39,47 +47,47 @@ jobs:
 
 
   # -------- Cortex CLI Download --------
-  - name: Download cortexcli
-    run: |
-      set -x
-      crtx_resp=$(curl "${CORTEX_API_URL}/public_api/v1/unified-cli/releases/download-link?os=linux&architecture=amd64" \
-        -H "x-xdr-auth-id: ${CORTEX_API_KEY_ID}" \
-        -H "Authorization: ${CORTEX_API_KEY}")
-      crtx_url=$(echo $crtx_resp | jq -r ".signed_url")
-      curl -o cortexcli $crtx_url
-      chmod +x cortexcli
-      ./cortexcli --version
+  # - name: Download cortexcli
+  #   run: |
+  #     set -x
+  #     crtx_resp=$(curl "${CORTEX_API_URL}/public_api/v1/unified-cli/releases/download-link?os=linux&architecture=amd64" \
+  #       -H "x-xdr-auth-id: ${CORTEX_API_KEY_ID}" \
+  #       -H "Authorization: ${CORTEX_API_KEY}")
+  #     crtx_url=$(echo $crtx_resp | jq -r ".signed_url")
+  #     curl -o cortexcli $crtx_url
+  #     chmod +x cortexcli
+  #     ./cortexcli --version
 
 
   # -------- Cortex Code Scan --------
-  - name: Run Cortex CLI Code Scan
-    run: |
-      ./cortexcli \
-        --api-base-url "${CORTEX_API_URL}" \
-        --api-key "${CORTEX_API_KEY}" \
-        --api-key-id "${CORTEX_API_KEY_ID}" \
-        code scan \
-        --directory "${{ github.workspace }}" \
-        --repo-id "${{ github.repository }}" \
-        --branch "${{ github.ref_name }}" \
-        --source "GITHUB_ACTIONS" \
-        --create-repo-if-missing
+  # - name: Run Cortex CLI Code Scan
+  #   run: |
+  #     ./cortexcli \
+  #       --api-base-url "${CORTEX_API_URL}" \
+  #       --api-key "${CORTEX_API_KEY}" \
+  #       --api-key-id "${CORTEX_API_KEY_ID}" \
+  #       code scan \
+  #       --directory "${{ github.workspace }}" \
+  #       --repo-id "${{ github.repository }}" \
+  #       --branch "${{ github.ref_name }}" \
+  #       --source "GITHUB_ACTIONS" \
+  #       --create-repo-if-missing
 
 
   # -------- Wiz CLI Download --------
-  - name: Download Wiz CLI
-    run: |
-      curl -o wizcli https://downloads.wiz.io/v1/wizcli/latest/wizcli-linux-amd64
-      chmod +x wizcli
+  # - name: Download Wiz CLI
+  #   run: |
+  #     curl -o wizcli https://downloads.wiz.io/v1/wizcli/latest/wizcli-linux-amd64
+  #     chmod +x wizcli
 
 
   # -------- Wiz IaC Scan --------
-  - name: Run Wiz IaC Scan
-    env:
-      WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
-      WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
-    run: |
-      ./wizcli scan dir $SCAN_PATH --policies "$POLICY"
+  # - name: Run Wiz IaC Scan
+  #   env:
+  #     WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
+  #     WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
+  #   run: |
+  #     ./wizcli scan dir $SCAN_PATH --policies "$POLICY"
 
 
   # -------- Terraform Setup --------
