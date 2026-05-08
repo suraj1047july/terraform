@@ -11,4 +11,7 @@ module "vnet" {
   location = var.location
   resource_group_name = module.ResourceGroup.id
   address_space = var.vnet_address_space
+  tags = {
+    env = var.tag
+  }
 }
