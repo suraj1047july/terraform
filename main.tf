@@ -9,7 +9,7 @@ module "vnet" {
   version = "1.0.2"
   name = var.vnet_name
   location = var.location
-  resource_group_name = module.ResourceGroup.id
+  resource_group = module.ResourceGroup.id
   address_space = var.vnet_address_space
   tags = {
     env = var.tag
