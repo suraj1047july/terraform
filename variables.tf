@@ -1,22 +1,19 @@
-
-variable "name" {
-  description = "VNet name"
-  type        = string
-}
-
-variable "rg" {
-  description = "Resource Group name"
+variable "rg_name" {
+  description = "Name of the resource group"
   type        = string
 }
 
 variable "location" {
-  description = "azure region"
+  description = "Location of the resource group"
   type        = string
 }
-variable "address_space" {
-  type = list(string)
+
+variable "vnet_name" {
+  description = "Name of the virtual network"
+  type        = string
 }
 
-variable "tags" {
-  type = map(string)
+variable "vnet_address_space" {
+  description = "Address space for the virtual network"
+  type        = list(string)
 }
