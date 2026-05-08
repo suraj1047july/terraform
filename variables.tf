@@ -17,3 +17,9 @@ variable "vnet_address_space" {
   description = "Address space for the virtual network"
   type        = list(string)
 }
+
+variable "tag" {
+  description = "Environment tag for the resources"
+  type        = string
+  
+}
