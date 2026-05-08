@@ -4,6 +4,6 @@ output "vnet_id" {
 output "vnet_name" {
     value = module.vnet.name
     }           
-output "rg_id" {
-    value = module.ResourceGroup.id
+output "rg_name" {
+    value = module.ResourceGroup.name
     }
