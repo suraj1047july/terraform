@@ -37,7 +37,11 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
+        with:
+          args: >
+            -Dsonar.projectKey=terraform-demo
+            -Dsonar.projectName="Terraform Demo"
+            -Dsonar.sources=.
       # Uncomment if you want to fail the PR when Quality Gate fails
       # - name: SonarQube Quality Gate
       #   uses: sonarsource/sonarqube-quality-gate-action@master
