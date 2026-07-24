@@ -1,5 +1,16 @@
 rg_name = "test-rg"
 location = "Centralindia"
-#vnet_name = "test-vnet"
-#vnet_address_space = ["10.0.0.0/16"]
-tag_environment = "test"
+vnets = {
+  vnet1 = {
+    name = "DEV-VNET"
+    address_space = [
+      "10.10.0.0/16"
+    ]
+  }
+  vnet2 = {
+    name = "PROD-VNET"
+    address_space = [
+      "10.20.0.0/16"
+    ]
+  }
+}
