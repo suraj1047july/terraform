@@ -10,7 +10,7 @@ module "Vnet" {
   version = "1.0.0"
   name           = each.value.name
   location       = each.value.location
-  resource_group = module.ResourceGroup.rg_name
+  resource_group = module.ResourceGroup.rg_id
   address_space  = each.value.address_space
 }
 
