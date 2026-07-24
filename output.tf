@@ -1,6 +1,6 @@
 #output "vnet_id" {
 #    value = module.vnet.id
 #    }          
-#output "rg_id" {
-#    value = module.ResourceGroup.name
-#    }
+output "resource_group_name" {
+  value = azurerm_resource_group.rg.name
+}
