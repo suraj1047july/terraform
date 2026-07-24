@@ -1,22 +1,18 @@
-
-variable "name" {
-  description = "VNet name"
-  type        = string
-}
-
-variable "rg" {
-  description = "Resource Group name"
+variable "rg_name" {
+  description = "Name of the resource group"
   type        = string
 }
 
 variable "location" {
-  description = "azure region"
+  description = "Location of the resource group"
   type        = string
 }
-variable "address_space" {
-  type = list(string)
-}
 
-variable "tags" {
-  type = map(string)
+variable "vnets" {
+  description = "Map of VNets to create"
+
+  type = map(object({
+    name           = string
+    address_space  = list(string)
+  }))
 }

@@ -51,7 +51,7 @@ jobs:
   #     ./cortexcli --version
 
 
-  # # -------- Cortex Code Scan --------
+  # -------- Cortex Code Scan --------
   # - name: Run Cortex CLI Code Scan
   #   run: |
   #     ./cortexcli \
