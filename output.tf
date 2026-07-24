@@ -2,5 +2,5 @@
 #    value = module.vnet.id
 #    }          
 output "rg_id" {
-    value = module.ResourceGroup.id
+    value = module.ResourceGroup.name
     }
