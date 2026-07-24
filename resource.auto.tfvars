@@ -7,10 +7,4 @@ vnets = {
       "10.10.0.0/16"
     ]
   }
-  vnet2 = {
-    name = "PROD-VNET"
-    address_space = [
-      "10.20.0.0/16"
-    ]
-  }
 }
