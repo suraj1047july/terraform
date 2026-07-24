@@ -7,7 +7,7 @@ module "ResourceGroup" {
 module "Vnet" {
   source  = "app.terraform.io/terraform_learn_all_cloud/Vnet/azurerm"
   version = "1.0.0"
-  for_each = var.vnet
+  for_each = var.vnets
   name           = each.value.name
   location       = each.value.location
   resource_group = module.ResourceGroup.rg_id
