@@ -8,15 +8,15 @@ variable "location" {
   type        = string
 }
 
-variable "vnet_name" {
-  description = "Name of the virtual network"
-  type        = string
-}
+#variable "vnet_name" {
+#  description = "Name of the virtual network"
+#  type        = string
+#}
 
-variable "vnet_address_space" {
-  description = "Address space for the virtual network"
-  type        = list(string)
-}
+#variable "vnet_address_space" {
+#  description = "Address space for the virtual network"
+#  type        = list(string)
+#}
 
 variable "tag" {
   description = "Environment tag for the resources"
