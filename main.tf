@@ -16,10 +16,13 @@ module "Vnet" {
 module "RouteTable" {
   source  = "app.terraform.io/terraform_learn_all_cloud/RouteTable/azurerm"
   version = "1.0.3"
+
   for_each = var.route_tables
-  name                = each.value.name
-  location            = module.ResourceGroup.location
-  resource_group_name = module.ResourceGroup.rg_name  
+
+  route_table_name = each.value.name
+  resource_group   = module.ResourceGroup.rg_name
+  location         = module.ResourceGroup.location
+
   route_name     = each.value.route_name
   address_prefix = each.value.address_prefix
   next_hop_type  = each.value.next_hop_type
