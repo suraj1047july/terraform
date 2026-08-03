@@ -20,7 +20,9 @@ module "RouteTable" {
   name                = each.value.name
   location            = module.ResourceGroup.location
   resource_group_name = module.ResourceGroup.rg_name  
-  routes = each.value.routes
+  route_name     = each.value.route_name
+  address_prefix = each.value.address_prefix
+  next_hop_type  = each.value.next_hop_type
 }
 
 
