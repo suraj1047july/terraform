@@ -17,3 +17,4 @@ route_tables = {
     address_prefix = "0.0.0.0/0"
     next_hop_type  = "Internet"
   }
+}
