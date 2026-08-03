@@ -7,11 +7,16 @@ output "vnet_ids" {
 output "resource_group_id" {
   value = module.ResourceGroup.rg_id
 }
-output "route_table_ids" {
-  description = "IDs of all Route Tables"
 
+output "route_table_ids" {
   value = {
     for key, rt in module.RouteTable :
     key => rt.id
+  }
+}
+output "route_table_names" {
+  value = {
+    for key, rt in module.RouteTable :
+    key => rt.name
   }
 }
