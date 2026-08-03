@@ -15,7 +15,7 @@ module "Vnet" {
 } 
 module "RouteTable" {
   source  = "app.terraform.io/terraform_learn_all_cloud/RouteTable/azurerm"
-  version = "1.0.3"
+  version = "1.0.4"
 
   for_each = var.route_tables
 
