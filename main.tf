@@ -29,7 +29,7 @@ module "RouteTable" {
 }
 module "Subnet" {
   source  = "app.terraform.io/terraform_learn_all_cloud/Subnet/azurerm"
-  version = "1.0.6"
+  version = "1.0.7"
   for_each = var.subnets
   subnet_name      = each.value.name
   resource_group   = module.ResourceGroup.rg_name
