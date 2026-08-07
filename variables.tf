@@ -30,8 +30,7 @@ variable "subnets" {
   description = "Map of Subnets"
 
   type = map(object({
-    subnet_name      = string
-    resource_group   = string
+    name             = string
     vnet             = string
     address_prefixes = list(string)
   }))
