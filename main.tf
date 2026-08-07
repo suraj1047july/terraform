@@ -35,9 +35,18 @@ module "Subnet" {
   resource_group   = module.ResourceGroup.rg_name
   vnet             = module.Vnet[each.value.vnet].vnet_name
   address_prefixes = each.value.address_prefixes
+}
+module "RouteTableAssociation" {
+  source  = "app.terraform.io/terraform_learn_all_cloud/RouteTableAssociation/azurerm"
+  version = "1.0.8"
+ for_each = {
+    for k, v in var.subnets :
+    k => v if v.route_table != null
+  }
+
+  subnet_id      = module.Subnet[each.key].id
   route_table_id = module.RouteTable[each.value.route_table].id
 }
-
 
 
 
