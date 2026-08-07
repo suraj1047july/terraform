@@ -22,6 +22,6 @@ subnets = {
   sub-1 = {
     name = "frontend-subnet"
     vnet = "hub"
-    address_prefix = ["10.0.1.0/24"]
+    address_prefixes = ["10.0.1.0/24"]
   }
 }
