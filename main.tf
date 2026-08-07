@@ -27,6 +27,16 @@ module "RouteTable" {
   address_prefix = each.value.address_prefix
   next_hop_type  = each.value.next_hop_type
 }
+module "Subnet" {
+  source  = "app.terraform.io/terraform_learn_all_cloud/Subnet/azurerm"
+  version = "1.0.5"
+  for_each = var.subnets
+  subnet_name          = each.value.subnet_name
+  subnet_address_space = each.value.subnet_address_space
+  resource_group_name  = module.ResourceGroup.resource_group_name
+  location             = module.ResourceGroup.resource_group_location
+  vnet_name            = module.Vnet.vnet_name
+}
 
 
 
