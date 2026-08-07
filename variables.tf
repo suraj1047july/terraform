@@ -33,6 +33,5 @@ variable "subnets" {
     name             = string
     vnet             = string
     address_prefixes = list(string)
-    route_table      = string
   }))
 }
