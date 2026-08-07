@@ -34,7 +34,7 @@ module "Subnet" {
   subnet_name      = each.value.name
   resource_group   = module.ResourceGroup.rg_name
   vnet             = module.Vnet[each.value.vnet].name
-  address_prefix = each.value.address_prefixes
+  address_prefixes = each.value.address_prefixes
 }
 
 
