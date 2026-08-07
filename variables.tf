@@ -26,3 +26,13 @@ variable "route_tables" {
     next_hop_type  = string
   }))
 }
+variable "subnets" {
+  description = "Map of Subnets"
+
+  type = map(object({
+    subnet_name      = string
+    resource_group   = string
+    vnet             = string
+    subnet_address_space = list(string)
+  }))
+}
