@@ -31,11 +31,11 @@ module "Subnet" {
   source  = "app.terraform.io/terraform_learn_all_cloud/Subnet/azurerm"
   version = "1.0.5"
   for_each = var.subnets
-  subnet_name          = each.value.subnet_name
-  subnet_address_space = each.value.subnet_address_space
-  resource_group_name  = module.ResourceGroup.resource_group_name
-  location             = module.ResourceGroup.resource_group_location
-  vnet_name            = module.Vnet.vnet_name
+  subnet_name      = each.value.name
+  resource_group   = module.ResourceGroup.rg_name
+  vnet             = module.Vnet[each.value.vnet].name
+  address_prefixes = each.value.address_prefixes
+}
 }
 
 
