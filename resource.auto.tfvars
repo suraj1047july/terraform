@@ -18,3 +18,9 @@ route_tables = {
     next_hop_type  = "Internet"
   }
 }
+subnets = {
+  sub-1 = {
+    subnet_name = "frontend-subnet"
+    vnet = "hub"
+    subnet_address_space = ["10.0.1.0/24"]
+  }
