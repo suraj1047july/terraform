@@ -23,5 +23,6 @@ subnets = {
     name = "frontend-subnet"
     vnet = "vnet1"
     address_prefixes = ["10.0.1.0/24"]
+    route_table      = "rt1"
   }
 }
