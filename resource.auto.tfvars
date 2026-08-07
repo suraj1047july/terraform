@@ -20,8 +20,8 @@ route_tables = {
 }
 subnets = {
   sub-1 = {
-    subnet_name = "frontend-subnet"
+    name = "frontend-subnet"
     vnet = "hub"
-    subnet_address_space = ["10.0.1.0/24"]
+    address_prefix = ["10.0.1.0/24"]
   }
 }
