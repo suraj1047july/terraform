@@ -36,7 +36,7 @@ module "Subnet" {
   vnet             = module.Vnet[each.value.vnet].name
   address_prefixes = each.value.address_prefixes
 }
-}
+
 
 
 
