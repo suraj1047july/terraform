@@ -29,12 +29,13 @@ module "RouteTable" {
 }
 module "Subnet" {
   source  = "app.terraform.io/terraform_learn_all_cloud/Subnet/azurerm"
-  version = "1.0.7"
+  version = "1.0.8"
   for_each = var.subnets
   subnet_name      = each.value.name
   resource_group   = module.ResourceGroup.rg_name
   vnet             = module.Vnet[each.value.vnet].vnet_name
   address_prefixes = each.value.address_prefixes
+  route_table_id = module.RouteTable[each.value.route_table].id
 }
 
 
