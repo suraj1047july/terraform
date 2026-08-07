@@ -33,6 +33,6 @@ variable "subnets" {
     subnet_name      = string
     resource_group   = string
     vnet             = string
-    address_prefix = list(string)
+    address_prefixes = list(string)
   }))
 }
