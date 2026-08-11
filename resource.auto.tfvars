@@ -17,6 +17,12 @@ route_tables = {
     address_prefix = "0.0.0.0/0"
     next_hop_type  = "Internet"
   }
+  rt2 = {
+    name           = "RouteTable-app"
+    route_name     = "InternetRoute"
+    address_prefix = "0.0.0.0/0"
+    next_hop_type  = "Internet"
+  }
 }
 subnets = {
   sub1 = {
