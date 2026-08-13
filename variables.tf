@@ -34,6 +34,7 @@ variable "subnets" {
     vnet             = string
     address_prefixes = list(string)
     route_table      = optional(string)
+    nsg              = optional(string)
   }))
 }
 variable "NSGs" {
