@@ -36,3 +36,19 @@ variable "subnets" {
     route_table      = optional(string)
   }))
 }
+variable "NSGs" {
+  description = "A map of NSG configurations"
+  type = map(object({
+    name                       = string
+    rule_name                  = string
+    priority                   = number
+    direction                  = string
+    access                     = string
+    protocol                   = string
+    source_port_range          = string
+    destination_port_range     = string
+    source_address_prefix      = string
+    destination_address_prefix = string
+  }))
+}
+
