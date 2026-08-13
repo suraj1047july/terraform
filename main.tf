@@ -75,7 +75,7 @@ module "NSGAssociation" {
     k => v if v.nsg != null
   }
   subnet_id = module.Subnet[each.key].id
-  nsg_id    = module.NSG[each.value.nsg].id
+  network_security_group_id    = module.NSG[each.value.nsg].id
 }
 
 
