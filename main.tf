@@ -67,6 +67,17 @@ module "NSG" {
   source_address_prefix  = each.value.source_address_prefix
   destination_address_prefix = each.value.destination_address_prefix
  }
+module "NSGAssociation" {
+  source  = "app.terraform.io/terraform_learn_all_cloud/NSGAssociation/azurerm"
+  version = "1.1.0"
+  for_each = {
+    for k, v in var.subnets :
+    k => v if v.nsg != null
+  }
+  subnet_id = module.Subnet[each.key].id
+  nsg_id    = module.NSG[each.value.nsg].id
+}
+
 
 
 
