@@ -69,7 +69,7 @@ module "NSG" {
  }
 module "NSGAssociation" {
   source  = "app.terraform.io/terraform_learn_all_cloud/NSGAssociation/azurerm"
-  version = "1.1.0"
+  version = "1.1.1"
   for_each = {
     for k, v in var.subnets :
     k => v if v.nsg != null
