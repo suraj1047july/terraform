@@ -53,7 +53,7 @@ module "NSG" {
   version = "1.0.9"
   for_each = var.NSGs
 
-  NSG_name = each.value.name
+  NSG_Name = each.value.name
   resource_group   = module.ResourceGroup.rg_name
   location         = module.ResourceGroup.location  
 
