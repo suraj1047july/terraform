@@ -48,6 +48,25 @@ module "RouteTableAssociation" {
   route_table_id = module.RouteTable[each.value.route_table].id
 }
 
+module "NSG" {
+  source  = "app.terraform.io/terraform_learn_all_cloud/NSG/azzurerm"
+  version = "1.0.9"
+  for_each = var.NSGs
+
+  NSG_name = each.value.name
+  resource_group   = module.ResourceGroup.rg_name
+  location         = module.ResourceGroup.location  
+
+  rule_name = each.value.rule_name
+  priority  = each.value.priority
+  direction = each.value.direction
+  access    = each.value.access
+  protocol  = each.value.protocol
+  source_port_range      = each.value.source_port_range
+  destination_port_range = each.value.destination_port_range
+  source_address_prefix  = each.value.source_address_prefix
+  destination_address_prefix = each.value.destination_address_prefix
+ }
 
 
 
