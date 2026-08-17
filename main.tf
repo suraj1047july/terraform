@@ -1,4 +1,4 @@
-module "ResourceGroup" {
+// module "ResourceGroup" {
 //   source  = "app.terraform.io/terraform_learn_all_cloud/ResourceGroup/azurerm"
 //   version = "1.0.3"
 //   name = var.rg_name
