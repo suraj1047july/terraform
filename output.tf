@@ -1,22 +1,22 @@
-output "vnet_ids" {
-  value = {
-    for k, v in module.Vnet :
-    k => v.vnet_id
-  }
-}         
-output "resource_group_id" {
-  value = module.ResourceGroup.rg_id
-}
+// output "vnet_ids" {
+//   value = {
+//     for k, v in module.Vnet :
+//     k => v.vnet_id
+//   }
+// }         
+// output "resource_group_id" {
+//   value = module.ResourceGroup.rg_id
+// }
 
-output "route_table_ids" {
-  value = {
-    for key, rt in module.RouteTable :
-    key => rt.id
-  }
-}
-output "route_table_names" {
-  value = {
-    for key, rt in module.RouteTable :
-    key => rt.name
-  }
-}
+// output "route_table_ids" {
+//   value = {
+//     for key, rt in module.RouteTable :
+//     key => rt.id
+//   }
+// }
+// output "route_table_names" {
+//   value = {
+//     for key, rt in module.RouteTable :
+//     key => rt.name
+//   }
+// }
