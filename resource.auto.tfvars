@@ -28,7 +28,7 @@ subnets = {
   sub1 = {
     name = "frontend-subnet"
     vnet = "vnet1"
-    address_prefixes = ["10.0.1.0/24"]
+    address_prefixes = ["10.10.64.0/18"]
     route_table      = "rt1"
     nsg              = "nsg1"
   }
