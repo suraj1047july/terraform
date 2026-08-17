@@ -49,7 +49,7 @@ module "RouteTableAssociation" {
 }
 
 module "NSG" {
-  source  = "app.terraform.io/terraform_learn_all_cloud/NSG/azzurerm"
+  source  = "app.terraform.io/terraform_learn_all_cloud/NSG/azurerm"
   version = "1.1.2"
   for_each = var.NSGs
 
